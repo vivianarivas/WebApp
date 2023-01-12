@@ -1,0 +1,68 @@
+CREATE DATABASE Inmobilaria
+use Inmobilaria
+
+
+CREATE TABLE [dbo].[Cliente](
+	[id_cliente] [numeric](2, 0) IDENTITY NOT NULL,
+	[nombre_cliente] [varchar](50) NULL,
+	[dir_cliente] [varchar](255) NULL,
+	[correo_cliente] [varchar](50) NULL,
+	[telefono_cliente] [numeric](12, 0) NULL
+) 
+ alter table Cliente
+  add primary key (id_cliente);
+
+
+
+CREATE TABLE [dbo].[Condicion](
+	[id_condicion] [numeric](2, 0) IDENTITY NOT NULL,
+	[desc_condicion] [varchar](255) NULL
+) 
+alter table Condicion
+  add primary key (id_condicion);
+
+
+CREATE TABLE [dbo].[Forma_Pago](
+	[id_forma_pago] [numeric](2, 0) IDENTITY NOT NULL,
+	[desc_forma_pago] [varchar](255) NULL
+) 
+alter table Forma_Pago
+  add primary key (id_forma_pago);
+
+
+CREATE TABLE [dbo].[Inmueble](
+	[id_inmueble] [numeric](8, 0) IDENTITY NOT NULL,
+	[desc_inmueble] [varchar](255) NULL,
+	[ubicacion_inmueble] [varchar](255) NULL,
+	[costo_inmueble] [numeric](10, 2) NULL
+) 
+alter table Inmueble
+  add primary key (id_inmueble);
+
+
+CREATE TABLE [dbo].[Tipo_Inmueble](
+	[id_tipo_inmueble] [numeric](2, 0) IDENTITY NOT NULL,
+	[desc_inmueble] [varchar](255) NULL
+) 
+alter table Tipo_Inmueble
+  add primary key (id_tipo_inmueble);
+
+
+
+CREATE TABLE [dbo].[Venta](
+	[id_venta] [numeric](2, 0) IDENTITY NOT NULL Primary key,
+	[id_inmueble] [numeric](8, 0) NOT NULL,
+	[id_cliente] [numeric](2, 0) NOT NULL,	
+	[id_condicion] [numeric](2, 0) NOT NULL,
+	[id_forma_pago] [numeric](2, 0) NOT NULL,	
+	[desc_venta] [varchar](255) NULL,
+	[total_venta] [numeric](10, 2)  NULL,
+	[total_iva] [numeric](8, 2) NULL,
+	[total_ventas] [numeric](8, 2) NULL,
+	[total_gral] [numeric](12, 2) NULL,
+	[fecha_venta] [date] NULL,
+	CONSTRAINT fk_Inmueble FOREIGN KEY (id_inmueble) REFERENCES Inmueble (id_inmueble),
+CONSTRAINT fk_Cliente FOREIGN KEY (id_cliente) REFERENCES Cliente (id_cliente),
+CONSTRAINT fk_Condicion FOREIGN KEY (id_condicion) REFERENCES Condicion (id_condicion),
+CONSTRAINT fk_Forma_Pago FOREIGN KEY (id_forma_pago) REFERENCES Forma_Pago (id_forma_pago)
+) 
